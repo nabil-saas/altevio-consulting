@@ -1,6 +1,6 @@
 /* ==========================================================================
    ALTEVIO CONSULTING — Design System
-   Direction : monochrome, near-black, typographie XXL, épure radicale.
+   Direction : clair, blanc et gris très clair, typographie XXL, épure.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -9,26 +9,34 @@
 
 :root {
   /* Surfaces */
-  --black: #000000;
-  --surface-1: #08080a;
-  --surface-2: #101012;
-  --surface-3: #17171a;
-  --surface-4: #1d1d1f;
+  --bg: #ffffff;
+  --surface-1: #f5f5f7; /* sections alternées, cellules écosystème */
+  --surface-2: #ffffff; /* cartes */
+  --surface-3: #fbfbfd; /* survol de carte */
+  --surface-4: #f0f0f3;
 
   /* Traits */
-  --hairline: rgba(255, 255, 255, 0.09);
-  --hairline-md: rgba(255, 255, 255, 0.14);
-  --hairline-lg: rgba(255, 255, 255, 0.24);
+  --hairline: rgba(0, 0, 0, 0.1);
+  --hairline-md: rgba(0, 0, 0, 0.16);
+  --hairline-lg: rgba(0, 0, 0, 0.28);
+  --grid-line: rgba(0, 0, 0, 0.055);
 
-  /* Texte */
-  --text: #f5f5f7;
-  --text-2: #a1a1a6;
-  --text-3: #6e6e73;
-  --text-4: #48484c;
+  /* Texte — contrastes mesurés (fond blanc / fond #f5f5f7).
+     Les quatre niveaux passent le seuil AA de 4,5:1, y compris le plus
+     clair : il sert aux mentions légales et aux libellés d'étape. */
+  --ink: #1d1d1f;
+  --text: #1d1d1f;      /* 16,9 / 15,4 */
+  --text-2: #515154;    /*  7,9 /  7,3 */
+  --text-3: #5c5c60;    /*  6,5 /  5,9 */
+  --text-4: #6e6e73;    /*  5,0 /  4,6 */
 
-  /* Accent — réservé aux liens et micro-signaux */
-  --accent: #2997ff;
-  --accent-dim: rgba(41, 151, 255, 0.16);
+  /* Accent — bleu lien Apple sur fond clair, 5,5:1 */
+  --accent: #0066cc;
+  --accent-dim: rgba(0, 102, 204, 0.1);
+
+  /* Ombres */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.06), 0 12px 28px rgba(0, 0, 0, 0.07);
 
   /* Typographie */
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
@@ -69,7 +77,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--black);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font);
   font-size: 17px;
@@ -119,8 +127,7 @@ button {
 }
 
 ::selection {
-  background: rgba(41, 151, 255, 0.32);
-  color: #fff;
+  background: rgba(0, 102, 204, 0.18);
 }
 
 :focus-visible {
@@ -211,7 +218,7 @@ h4 {
 }
 
 .dim {
-  color: var(--text-3);
+  color: var(--text-4);
 }
 
 /* --------------------------------------------------------------------------
@@ -254,7 +261,7 @@ h4 {
   height: 340px;
   background: radial-gradient(
     ellipse 58% 100% at 50% 0%,
-    rgba(41, 151, 255, 0.055),
+    rgba(0, 102, 204, 0.045),
     transparent 72%
   );
   pointer-events: none;
@@ -272,7 +279,7 @@ h4 {
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--text-2);
+  color: var(--text-3);
 }
 
 .section-label::before {
@@ -330,35 +337,33 @@ h4 {
 }
 
 .btn--primary {
-  background: var(--text);
-  color: var(--black);
+  background: var(--ink);
+  color: #fff;
   font-weight: 600;
 }
 
 .btn--primary:hover {
-  background: #fff;
+  background: #000;
 }
 
 .btn--ghost {
   border-color: var(--hairline-md);
-  color: var(--text);
+  color: var(--ink);
 }
 
 .btn--ghost:hover {
   border-color: var(--hairline-lg);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.03);
 }
 
-/* Bleu volontairement plus sombre que --accent : sur blanc, #2997ff ne
-   donne que 3,0:1 de contraste. #0b74e5 monte à 4,5:1 (AA). */
 .btn--accent {
-  background: #0b74e5;
+  background: var(--accent);
   color: #fff;
   font-weight: 600;
 }
 
 .btn--accent:hover {
-  background: #1a83f2;
+  background: #0a74e0;
 }
 
 .btn--sm {
@@ -484,7 +489,7 @@ h4 {
   position: fixed;
   inset: 0 0 auto;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid transparent;
@@ -492,7 +497,7 @@ h4 {
 }
 
 .header.is-stuck {
-  background: rgba(0, 0, 0, 0.82);
+  background: rgba(255, 255, 255, 0.92);
   border-bottom-color: var(--hairline);
 }
 
@@ -512,7 +517,7 @@ h4 {
 }
 
 .brand:hover {
-  opacity: 0.72;
+  opacity: 0.7;
 }
 
 .brand img {
@@ -537,12 +542,12 @@ h4 {
 }
 
 .nav a:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .nav a.is-active {
-  color: var(--text);
+  color: var(--ink);
 }
 
 .header__actions {
@@ -566,7 +571,7 @@ h4 {
   display: block;
   width: 18px;
   height: 1.5px;
-  background: var(--text);
+  background: var(--ink);
   border-radius: 2px;
   transition: transform 0.4s var(--ease-apple), opacity 0.2s var(--ease);
 }
@@ -578,7 +583,7 @@ h4 {
   left: 0;
   width: 18px;
   height: 1.5px;
-  background: var(--text);
+  background: var(--ink);
   border-radius: 2px;
   transition: transform 0.4s var(--ease-apple);
 }
@@ -608,7 +613,7 @@ h4 {
   position: fixed;
   inset: 68px 0 0;
   z-index: 990;
-  background: rgba(0, 0, 0, 0.96);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   padding: 28px var(--gutter) 48px;
@@ -681,8 +686,8 @@ h4 {
   transform: translateX(-50%);
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(41, 151, 255, 0.16) 0%,
-    rgba(41, 151, 255, 0.06) 32%,
+    rgba(0, 102, 204, 0.09) 0%,
+    rgba(0, 102, 204, 0.035) 32%,
     transparent 62%
   );
   animation: drift 22s var(--ease) infinite alternate;
@@ -705,12 +710,11 @@ h4 {
   position: absolute;
   z-index: -3;
   inset: 0;
-  background-image: linear-gradient(var(--hairline) 1px, transparent 1px),
-    linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 88px 88px;
   mask-image: radial-gradient(ellipse 78% 62% at 50% 32%, #000 20%, transparent 78%);
   -webkit-mask-image: radial-gradient(ellipse 78% 62% at 50% 32%, #000 20%, transparent 78%);
-  opacity: 0.6;
   pointer-events: none;
 }
 
@@ -726,7 +730,7 @@ h4 {
   padding-inline: 14px;
   border: 1px solid var(--hairline-md);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.7);
   font-size: 13px;
   color: var(--text-2);
   letter-spacing: -0.005em;
@@ -734,7 +738,7 @@ h4 {
 }
 
 .hero__badge b {
-  color: var(--text);
+  color: var(--ink);
   font-weight: 500;
 }
 
@@ -742,14 +746,47 @@ h4 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #30d158;
-  box-shadow: 0 0 0 3px rgba(48, 209, 88, 0.18);
+  background: #1db954;
+  box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.18);
   flex-shrink: 0;
 }
 
+/* Plafond plus bas que .t-display (104px) : la phrase fait 78 caractères
+   et s'empilerait sur six lignes à cette taille. */
 .hero h1 {
-  max-width: 15ch;
-  margin-bottom: 30px;
+  font-size: clamp(34px, 5.6vw, 72px);
+  max-width: 26ch;
+  margin-bottom: 24px;
+}
+
+/* Rotateur de modules — tous les éléments occupent la même cellule de grille,
+   donc le bloc garde une hauteur et une largeur fixes pendant la rotation. */
+.hero__rotator {
+  display: grid;
+  justify-items: start;
+  margin: 0 0 34px;
+  font-size: clamp(26px, 3.4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--accent);
+}
+
+.hero__rotator-item {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(0.32em);
+  transition: opacity 0.62s var(--ease-out), transform 0.62s var(--ease-out);
+}
+
+.hero__rotator-item.is-current {
+  opacity: 1;
+  transform: none;
+}
+
+.hero__rotator-item.is-out {
+  opacity: 0;
+  transform: translateY(-0.32em);
 }
 
 .hero__sub {
@@ -771,7 +808,7 @@ h4 {
 }
 
 .hero__stats > div {
-  background: var(--black);
+  background: var(--bg);
   padding: 26px 26px 26px 0;
 }
 
@@ -841,7 +878,8 @@ h4 {
   position: relative;
   overflow: hidden;
   padding-block: 34px;
-  border-bottom: 1px solid var(--hairline);
+  background: var(--surface-1);
+  border-block: 1px solid var(--hairline);
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
@@ -878,7 +916,7 @@ h4 {
 }
 
 .marquee:hover .marquee__item {
-  color: var(--text-3);
+  color: var(--text-2);
 }
 
 /* --------------------------------------------------------------------------
@@ -899,10 +937,6 @@ h4 {
   line-height: 1.1;
   letter-spacing: -0.032em;
   text-wrap: balance;
-}
-
-.statement p .dim {
-  color: var(--text-4);
 }
 
 .statement__note {
@@ -933,9 +967,10 @@ h4 {
   border: 1px solid var(--hairline);
   border-radius: var(--r-lg);
   background: var(--surface-2);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
   isolation: isolate;
-  transition: border-color 0.4s var(--ease), background-color 0.4s var(--ease),
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease),
     transform 0.5s var(--ease-apple);
 }
 
@@ -948,7 +983,7 @@ h4 {
   border-radius: inherit;
   background: radial-gradient(
     340px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(255, 255, 255, 0.07),
+    rgba(0, 102, 204, 0.06),
     transparent 62%
   );
   opacity: 0;
@@ -958,7 +993,7 @@ h4 {
 
 .card:hover {
   border-color: var(--hairline-md);
-  background: var(--surface-3);
+  box-shadow: var(--shadow-md);
   transform: translateY(-3px);
 }
 
@@ -970,8 +1005,7 @@ h4 {
   width: 40px;
   height: 40px;
   margin-bottom: 26px;
-  color: var(--text);
-  opacity: 0.9;
+  color: var(--ink);
 }
 
 .card__icon svg {
@@ -1040,7 +1074,7 @@ h4 {
   left: 0;
   right: 0;
   height: 1px;
-  background: var(--text);
+  background: var(--ink);
   transform: scaleX(0);
   transform-origin: 0 50%;
   transition: transform 0.9s var(--ease-out);
@@ -1088,12 +1122,15 @@ h4 {
   border: 1px solid var(--hairline);
   border-radius: var(--r-md);
   background: var(--surface-2);
-  transition: border-color 0.35s var(--ease), background-color 0.35s var(--ease);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.35s var(--ease), box-shadow 0.35s var(--ease),
+    transform 0.45s var(--ease-apple);
 }
 
 .profile:hover {
   border-color: var(--hairline-md);
-  background: var(--surface-3);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
 }
 
 .profile__mono {
@@ -1130,7 +1167,7 @@ h4 {
 }
 
 .profile__foot b {
-  color: var(--text);
+  color: var(--ink);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
@@ -1159,7 +1196,7 @@ h4 {
   font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--text-4);
+  color: var(--text-3);
   margin-bottom: 22px;
 }
 
@@ -1173,7 +1210,7 @@ h4 {
   padding: 7px 13px;
   border: 1px solid var(--hairline);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg);
   font-size: 13.5px;
   color: var(--text-2);
   letter-spacing: -0.006em;
@@ -1181,7 +1218,7 @@ h4 {
 }
 
 .stack__list span:hover {
-  color: var(--text);
+  color: var(--ink);
   border-color: var(--hairline-lg);
 }
 
@@ -1229,7 +1266,7 @@ h4 {
 
 .sector:hover {
   padding-left: 24px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .sector__i {
@@ -1264,7 +1301,7 @@ h4 {
 
 .quotes {
   overflow: hidden;
-  padding-block: 8px 12px;
+  padding-block: 8px 20px;
   mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
 }
@@ -1290,13 +1327,14 @@ h4 {
   border: 1px solid var(--hairline);
   border-radius: var(--r-md);
   background: var(--surface-2);
+  box-shadow: var(--shadow-sm);
 }
 
 .quote__text {
   font-size: 17px;
   line-height: 1.52;
   letter-spacing: -0.014em;
-  color: var(--text);
+  color: var(--ink);
   flex-grow: 1;
 }
 
@@ -1311,7 +1349,7 @@ h4 {
 
 .quote__author b {
   display: block;
-  color: var(--text);
+  color: var(--ink);
   font-weight: 500;
   margin-bottom: 2px;
 }
@@ -1325,7 +1363,8 @@ h4 {
   overflow: hidden;
   border: 1px solid var(--hairline);
   border-radius: var(--r-xl);
-  background: var(--surface-1);
+  background: var(--bg);
+  box-shadow: var(--shadow-sm);
   padding: clamp(40px, 6vw, 76px);
   display: grid;
   grid-template-columns: 1fr 0.9fr;
@@ -1339,7 +1378,7 @@ h4 {
   inset: auto -10% -60% auto;
   width: 620px;
   aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(41, 151, 255, 0.13), transparent 66%);
+  background: radial-gradient(circle, rgba(0, 102, 204, 0.07), transparent 66%);
   pointer-events: none;
 }
 
@@ -1359,7 +1398,7 @@ h4 {
   align-items: flex-start;
   gap: 13px;
   padding: 18px 22px;
-  background: var(--surface-2);
+  background: var(--surface-1);
   font-size: 15px;
   color: var(--text-2);
   line-height: 1.45;
@@ -1370,7 +1409,7 @@ h4 {
   height: 17px;
   flex-shrink: 0;
   margin-top: 2px;
-  color: var(--text);
+  color: var(--accent);
 }
 
 /* --------------------------------------------------------------------------
@@ -1403,7 +1442,7 @@ h4 {
 
 .faq__q:hover,
 .faq__item.is-open .faq__q {
-  color: var(--text);
+  color: var(--ink);
 }
 
 .faq__sign {
@@ -1475,7 +1514,7 @@ h4 {
   height: 700px;
   background: radial-gradient(
     ellipse 46% 50% at 50% 62%,
-    rgba(41, 151, 255, 0.15),
+    rgba(0, 102, 204, 0.08),
     transparent 70%
   );
   pointer-events: none;
@@ -1527,7 +1566,7 @@ h4 {
 .contact__value {
   font-size: 17.5px;
   letter-spacing: -0.016em;
-  color: var(--text);
+  color: var(--ink);
 }
 
 a.contact__value:hover {
@@ -1538,7 +1577,8 @@ a.contact__value:hover {
   padding: clamp(28px, 3.4vw, 44px);
   border: 1px solid var(--hairline);
   border-radius: var(--r-lg);
-  background: var(--surface-1);
+  background: var(--bg);
+  box-shadow: var(--shadow-sm);
 }
 
 .field {
@@ -1568,11 +1608,11 @@ textarea {
   font-family: inherit;
   font-size: 16px;
   letter-spacing: -0.01em;
-  color: var(--text);
-  background: var(--surface-3);
-  border: 1px solid var(--hairline);
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--hairline-md);
   border-radius: var(--r-sm);
-  transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease);
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
   -webkit-appearance: none;
   appearance: none;
 }
@@ -1585,7 +1625,7 @@ textarea::placeholder {
 input:hover,
 select:hover,
 textarea:hover {
-  border-color: var(--hairline-md);
+  border-color: var(--hairline-lg);
 }
 
 input:focus,
@@ -1593,7 +1633,7 @@ select:focus,
 textarea:focus {
   outline: none;
   border-color: var(--accent);
-  background: var(--surface-4);
+  box-shadow: 0 0 0 3px var(--accent-dim);
 }
 
 select {
@@ -1602,11 +1642,6 @@ select {
   background-position: right 16px center;
   background-size: 12px;
   padding-right: 42px;
-}
-
-select option {
-  background: var(--surface-4);
-  color: var(--text);
 }
 
 textarea {
@@ -1640,7 +1675,7 @@ textarea {
 .form__done svg {
   width: 46px;
   height: 46px;
-  color: #30d158;
+  color: #1db954;
 }
 
 .form__done h3 {
@@ -1705,7 +1740,7 @@ textarea {
 }
 
 .footer li a:hover {
-  color: var(--text);
+  color: var(--ink);
 }
 
 .footer__bottom {

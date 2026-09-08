@@ -273,4 +273,37 @@
       if (need) need.value = 'Candidature consultant';
     });
   });
+
+  /* ----------------------------------------------------------------------
+     11. Rotateur de modules du héros
+     ---------------------------------------------------------------------- */
+
+  var rotator = $('#heroRotator');
+
+  // Sans JS, ou en mouvement réduit, seul le premier module reste affiché :
+  // il porte déjà .is-current dans le HTML.
+  if (rotator && !reduced) {
+    var modules = $$('.hero__rotator-item', rotator);
+    var INTERVALLE = 2000;
+    var TRANSITION = 620; // doit rester aligné sur la transition CSS
+    var courant = 0;
+
+    if (modules.length > 1) {
+      setInterval(function () {
+        var sortant = modules[courant];
+        courant = (courant + 1) % modules.length;
+
+        sortant.classList.remove('is-current');
+        sortant.classList.add('is-out');
+        modules[courant].classList.add('is-current');
+
+        // Une fois invisible, on rend le sortant à sa position basse.
+        // Sans cela il resterait en haut et réapparaîtrait par le mauvais
+        // côté à son prochain passage.
+        setTimeout(function () {
+          sortant.classList.remove('is-out');
+        }, TRANSITION);
+      }, INTERVALLE);
+    }
+  }
 })();

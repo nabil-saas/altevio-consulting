@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Altevio Consulting — Experts SAP S/4HANA, mobilisables en 12 jours</title>
 <meta name="description" content="Altevio Consulting réunit un réseau de consultants freelance seniors — architectes, fonctionnels, techniques — pour sécuriser vos transformations SAP S/4HANA, du cadrage au run.">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" type="image/svg+xml" href="assets/altevio-mark.svg">
 <link rel="canonical" href="https://www.altevio-consulting.fr/">
 
@@ -19,7 +19,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<!-- ?v= : sans lui, le navigateur resert la feuille et le script depuis son
+     cache après une mise en ligne. Incrémenter à chaque modification de css/ ou js/. -->
+<link rel="stylesheet" href="css/style.css?v=2">
 
 <script>document.documentElement.classList.add('js');</script>
 
@@ -43,7 +45,7 @@
 <header class="header" id="header">
   <div class="shell header__inner">
     <a href="#top" class="brand" aria-label="Altevio Consulting — accueil">
-      <img src="assets/altevio-white.svg" alt="Altevio Consulting" width="1115" height="306">
+      <img src="assets/altevio-black.svg" alt="Altevio Consulting" width="1115" height="306">
     </a>
 
     <nav class="nav" id="nav" aria-label="Navigation principale">
@@ -91,19 +93,34 @@
       <i class="dot"></i> Réseau ouvert — <b>17 experts disponibles</b>
     </span>
 
-    <h1 class="t-display split">L'expertise S/4HANA. Sans compromis.</h1>
+    <h1 class="t-display split">Nous vous accompagnons dans votre transformation SAP S/4HANA, de bout en bout.</h1>
 
-    <p class="t-lead hero__sub reveal" style="--d:520ms">
+    <!-- Modules empilés dans une même cellule de grille : un seul est visible,
+         et ni la hauteur ni la largeur du bloc ne bougent d'un module à l'autre.
+         aria-hidden : le contenu défile en boucle et la liste complète des
+         modules est déjà annoncée par le bandeau situé sous le héros. -->
+    <p class="hero__rotator reveal" id="heroRotator" style="--d:560ms" aria-hidden="true">
+      <span class="hero__rotator-item is-current">SAP MM</span>
+      <span class="hero__rotator-item">SAP SD</span>
+      <span class="hero__rotator-item">SAP FICO</span>
+      <span class="hero__rotator-item">SAP PP</span>
+      <span class="hero__rotator-item">SAP EWM</span>
+      <span class="hero__rotator-item">SAP MDG</span>
+      <span class="hero__rotator-item">SAP TM</span>
+      <span class="hero__rotator-item">SAP GTS</span>
+    </p>
+
+    <p class="t-lead hero__sub reveal" style="--d:660ms">
       Altevio réunit un réseau de consultants freelance seniors — architectes, fonctionnels,
       techniques — pour sécuriser vos transformations SAP, du premier cadrage jusqu'au run.
     </p>
 
-    <div class="btn-row reveal" style="--d:640ms">
+    <div class="btn-row reveal" style="--d:780ms">
       <a href="#contact" class="btn btn--primary">Exprimer un besoin</a>
       <a href="#expertises" class="btn btn--ghost">Découvrir nos expertises</a>
     </div>
 
-    <div class="hero__stats reveal" style="--d:760ms">
+    <div class="hero__stats reveal" style="--d:900ms">
       <div>
         <div class="stat__value" data-count="15" data-suffix=" ans">15 ans</div>
         <div class="stat__label">d'expérience moyenne<br>par consultant</div>
@@ -496,8 +513,6 @@
       <ul class="join__list">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg> Des missions qualifiées, jamais de CV envoyé à l'aveugle</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg> TJM annoncé dès le premier échange, sans marge cachée</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg> Paiement à 30 jours, sans condition ni relance</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg> Aucune clause d'exclusivité</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg> Un interlocuteur qui connaît SAP et comprend votre métier</li>
       </ul>
     </div>
@@ -681,19 +696,6 @@
 
       <div class="faq__item">
         <button class="faq__q" aria-expanded="false">
-          Que se passe-t-il si le consultant ne convient pas ?
-          <span class="faq__sign" aria-hidden="true"></span>
-        </button>
-        <div class="faq__a"><div><p>
-          Les quinze premiers jours constituent une période d'essai. Si le profil ne correspond pas
-          à vos attentes, la mission s'arrête sans frais et nous vous proposons un remplaçant sous
-          10 jours ouvrés. Au-delà, la garantie de continuité s'applique : en cas de défaillance
-          du consultant, nous assurons le relais et le transfert de connaissance.
-        </p></div></div>
-      </div>
-
-      <div class="faq__item">
-        <button class="faq__q" aria-expanded="false">
           Travaillez-vous en dehors de la France ?
           <span class="faq__sign" aria-hidden="true"></span>
         </button>
@@ -715,7 +717,7 @@
   <div class="shell">
     <div class="footer__grid">
       <div class="footer__brand">
-        <img src="assets/altevio-white.svg" alt="Altevio Consulting" width="1115" height="306">
+        <img src="assets/altevio-black.svg" alt="Altevio Consulting" width="1115" height="306">
         <p>Cabinet de conseil spécialisé SAP S/4HANA. Un réseau de consultants freelance seniors, sélectionnés un par un.</p>
       </div>
 
@@ -759,6 +761,6 @@
   </div>
 </footer>
 
-<script src="js/main.js"></script>
+<script src="js/main.js?v=2"></script>
 </body>
 </html>
