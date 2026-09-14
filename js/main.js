@@ -51,6 +51,16 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 
     revealables.forEach(function (el) { revealObserver.observe(el); });
+
+    // Filet de sécurité : le contenu au-dessus de la ligne de flottaison doit
+    // finir par apparaître même si l'observateur se déclenche mal (appareil
+    // lent, onglet ouvert en arrière-plan, redimensionnement de la barre
+    // d'adresse sur mobile). Sans cela le héros peut rester vide.
+    setTimeout(function () {
+      $$('.hero .reveal, .hero .split').forEach(function (el) {
+        el.classList.add('is-in');
+      });
+    }, 1400);
   }
 
   /* ----------------------------------------------------------------------
@@ -233,12 +243,16 @@
   });
 
   /* ----------------------------------------------------------------------
-     9. Formulaire de contact
+     9. Formulaires (besoin client & candidature consultant)
      ---------------------------------------------------------------------- */
 
-  var form = $('#contactForm');
+  var COCHE =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" ' +
+      'stroke-linecap="round" stroke-linejoin="round">' +
+      '<circle cx="12" cy="12" r="10"/><path d="m8 12.5 2.5 2.5L16 9.5"/>' +
+    '</svg>';
 
-  if (form) {
+  $$('form[data-done]').forEach(function (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
@@ -247,35 +261,31 @@
         return;
       }
 
-      var name = ($('#name', form).value || '').trim().split(/\s+/)[0];
+      var champ = form.querySelector('[data-firstname]');
+      var prenom = champ ? (champ.value || '').trim().split(/\s+/)[0] : '';
 
-      form.innerHTML =
-        '<div class="form__done">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" ' +
-            'stroke-linecap="round" stroke-linejoin="round">' +
-            '<circle cx="12" cy="12" r="10"/><path d="m8 12.5 2.5 2.5L16 9.5"/>' +
-          '</svg>' +
-          '<h3 class="t-h3">Demande bien reçue' + (name ? ', ' + name : '') + '.</h3>' +
-          '<p>Un consultant du cabinet revient vers vous sous 48 heures ouvrées ' +
-          'avec une première réponse qualifiée.</p>' +
-        '</div>';
-    });
-  }
+      var bloc = document.createElement('div');
+      bloc.className = 'form__done';
+      bloc.innerHTML = COCHE;
 
-  /* ----------------------------------------------------------------------
-     10. Pré-remplissage du formulaire depuis les entrées « consultant »
-     ---------------------------------------------------------------------- */
+      // textContent et non innerHTML : le prénom vient d'une saisie utilisateur.
+      var titre = document.createElement('h3');
+      titre.className = 't-h3';
+      titre.textContent = form.dataset.doneTitle + (prenom ? ', ' + prenom : '') + '.';
 
-  $$('[data-prefill="consultant"]').forEach(function (link) {
-    link.addEventListener('click', function () {
-      // Absent si le formulaire a déjà été envoyé et remplacé par l'accusé.
-      var need = document.getElementById('need');
-      if (need) need.value = 'Candidature consultant';
+      var message = document.createElement('p');
+      message.textContent = form.dataset.done;
+
+      bloc.appendChild(titre);
+      bloc.appendChild(message);
+
+      form.innerHTML = '';
+      form.appendChild(bloc);
     });
   });
 
   /* ----------------------------------------------------------------------
-     11. Rotateur de modules du héros
+     10. Rotateur de modules du héros
      ---------------------------------------------------------------------- */
 
   var rotator = $('#heroRotator');

@@ -1412,6 +1412,60 @@ h4 {
   color: var(--accent);
 }
 
+/* Formulaire candidature — posé directement sur la carte .join, donc sans
+   fond ni cadre propres : deux cartes blanches imbriquées se verraient mal. */
+.join__form {
+  position: relative;
+  z-index: 1;
+}
+
+.join__form-title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.join__form .btn {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.field__hint {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  color: var(--text-4);
+}
+
+/* Champ fichier — le contrôle natif est illisible sans reprise */
+input[type="file"] {
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text-3);
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+  margin-right: 12px;
+  padding: 8px 15px;
+  border: 1px solid var(--hairline-md);
+  border-radius: 8px;
+  background: var(--surface-1);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: var(--surface-4);
+  border-color: var(--hairline-lg);
+}
+
 /* --------------------------------------------------------------------------
    18. FAQ
    -------------------------------------------------------------------------- */
@@ -1836,6 +1890,29 @@ textarea {
 }
 
 @media (max-width: 620px) {
+  /* Sur petit écran le titre passe à 5 lignes et 12 mots : la révélation
+     mot à mot devient confuse, longue, et multiplie les couches GPU.
+     Le titre apparaît d'un seul bloc, comme les autres éléments. */
+  .js .split .w {
+    overflow: visible;
+  }
+
+  .js .split .w > span {
+    transform: none;
+    transition: none;
+  }
+
+  .js .split {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
+  }
+
+  .js .split.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
   .hero {
     padding-top: 118px;
   }
