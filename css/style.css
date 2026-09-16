@@ -1845,9 +1845,9 @@ textarea {
   flex-shrink: 0;
 }
 
-/* Le héros, le bandeau CTA et la section contact portent déjà cet appel à
-   l'action : le bouton ne s'affiche qu'entre les deux, via .is-visible posée
-   par le JS. Sans JS, il reste affiché en permanence.
+/* Le héros porte déjà cet appel à l'action : le bouton reste masqué tant que le
+   JS n'a pas posé .is-visible, c'est-à-dire tant que la première section n'est
+   pas dépassée. Sans JS, il est affiché en permanence.
    `:not()` plutôt qu'une règle sur .is-visible : la spécificité (0,3,0)
    resterait sinon au-dessus de :hover et :active, qui n'auraient plus d'effet. */
 .js .fab:not(.is-visible) {

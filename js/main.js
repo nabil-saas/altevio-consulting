@@ -328,29 +328,29 @@
     // bouton : le CSS le masque tant que .is-visible est absente.
     fab.classList.add('is-visible');
   } else if (fab) {
-    // Le héros porte déjà le même bouton : le raccourci n'apparaît qu'une fois
-    // celui-ci sorti de l'écran. On le masque ensuite sur les blocs qui
-    // reprennent cet appel à l'action, ou dont il recouvrirait les champs.
-    var fabZones = $$('.hero, #reseau, .cta, #contact');
+    var hero = $('.hero');
 
-    var onScreen = function (el) {
-      var rect = el.getBoundingClientRect();
-      return rect.bottom > 0 && rect.top < window.innerHeight;
-    };
+    if (!hero) {
+      fab.classList.add('is-visible');
+    } else {
+      // Le héros porte déjà le même appel à l'action : le raccourci apparaît
+      // une fois cette première section dépassée, puis reste affiché jusqu'en
+      // bas de page.
+      var syncFab = function () {
+        var rect = hero.getBoundingClientRect();
+        fab.classList.toggle(
+          'is-visible',
+          rect.bottom <= 0 || rect.top >= window.innerHeight
+        );
+      };
 
-    // L'état est recalculé depuis la géométrie à chaque appel, et non mémorisé
-    // au fil des entrées reçues : un même lot peut contenir plusieurs états
-    // successifs d'une zone, dont seul le dernier décrit la position réelle.
-    var syncFab = function () {
-      fab.classList.toggle('is-visible', !fabZones.some(onScreen));
-    };
+      // L'observateur ne sert que de déclencheur — on n'est notifié qu'au
+      // franchissement, pas à chaque pixel. L'état est recalculé depuis la
+      // géométrie plutôt que lu dans les entrées reçues : un même lot peut en
+      // contenir plusieurs, dont seule la dernière décrit la position réelle.
+      new IntersectionObserver(syncFab, { threshold: 0 }).observe(hero);
 
-    // Les observateurs ne servent que de déclencheurs : on n'est notifié qu'aux
-    // franchissements, pas à chaque pixel de défilement.
-    var fabObserver = new IntersectionObserver(syncFab, { threshold: 0 });
-
-    fabZones.forEach(function (el) { fabObserver.observe(el); });
-
-    syncFab();
+      syncFab();
+    }
   }
 })();
