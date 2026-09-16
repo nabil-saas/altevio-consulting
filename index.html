@@ -21,7 +21,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- ?v= : sans lui, le navigateur resert la feuille et le script depuis son
      cache après une mise en ligne. Incrémenter à chaque modification de css/ ou js/. -->
-<link rel="stylesheet" href="css/style.css?v=5">
+<link rel="stylesheet" href="css/style.css?v=6">
 
 <script>document.documentElement.classList.add('js');</script>
 
@@ -767,6 +767,14 @@
 
 </main>
 
+<!-- ══════════════════ Bouton flottant ══════════════════ -->
+<!-- Hors de <main> : ce raccourci accompagne la page entière, pas son contenu
+     principal. Son affichage est piloté par js/main.js (§ 11). -->
+<a href="#contact" class="fab" id="fab">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-11.9 7.8L3.5 21l1.6-5.1A8.5 8.5 0 1 1 20.5 11.6z"/></svg>
+  Exprimer un besoin
+</a>
+
 <!-- ══════════════════ Pied de page ══════════════════ -->
 <footer class="footer">
   <div class="shell">
@@ -816,6 +824,6 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=5"></script>
+<script src="js/main.js?v=6"></script>
 </body>
 </html>

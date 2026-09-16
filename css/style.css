@@ -1810,7 +1810,72 @@ textarea {
 }
 
 /* --------------------------------------------------------------------------
-   22. Responsive
+   22. Bouton flottant
+   -------------------------------------------------------------------------- */
+
+/* z-index sous .drawer (990) : le panneau mobile porte déjà le même bouton. */
+.fab {
+  position: fixed;
+  z-index: 900;
+  right: clamp(16px, 2.4vw, 32px);
+  /* viewport-fit=cover : la marge basse doit intégrer la zone sûre iOS,
+     sinon le bouton se glisse sous la barre d'accueil. */
+  bottom: calc(clamp(16px, 2.4vw, 32px) + env(safe-area-inset-bottom, 0px));
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 52px;
+  padding-inline: 21px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14), 0 14px 34px rgba(0, 0, 0, 0.16);
+  transition: opacity 0.4s var(--ease), visibility 0.4s,
+    transform 0.45s var(--ease-apple), background-color 0.28s var(--ease),
+    box-shadow 0.4s var(--ease);
+}
+
+.fab svg {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+}
+
+/* Le héros, le bandeau CTA et la section contact portent déjà cet appel à
+   l'action : le bouton ne s'affiche qu'entre les deux, via .is-visible posée
+   par le JS. Sans JS, il reste affiché en permanence.
+   `:not()` plutôt qu'une règle sur .is-visible : la spécificité (0,3,0)
+   resterait sinon au-dessus de :hover et :active, qui n'auraient plus d'effet. */
+.js .fab:not(.is-visible) {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px) scale(0.94);
+  pointer-events: none;
+}
+
+.fab:hover {
+  background: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18), 0 18px 40px rgba(0, 0, 0, 0.2);
+}
+
+.fab:active {
+  transform: scale(0.97);
+}
+
+/* Le panneau mobile est translucide : sans cela le bouton se devine derrière. */
+.nav-open .fab {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   23. Responsive
    -------------------------------------------------------------------------- */
 
 /* 1140 et non 1080 : le logo est plus large que le précédent, l'en-tête
@@ -1965,5 +2030,19 @@ textarea {
 
   .btn-row .btn {
     width: 100%;
+  }
+
+  .fab {
+    height: 48px;
+    padding-inline: 17px;
+    gap: 8px;
+    font-size: 14.5px;
+    right: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .fab svg {
+    width: 18px;
+    height: 18px;
   }
 }

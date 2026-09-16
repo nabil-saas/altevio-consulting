@@ -316,4 +316,41 @@
       }, INTERVALLE);
     }
   }
+
+  /* ----------------------------------------------------------------------
+     11. Bouton flottant « Exprimer un besoin »
+     ---------------------------------------------------------------------- */
+
+  var fab = $('#fab');
+
+  if (fab && !('IntersectionObserver' in window)) {
+    // Sans observateur, on renonce à l'apparition progressive plutôt qu'au
+    // bouton : le CSS le masque tant que .is-visible est absente.
+    fab.classList.add('is-visible');
+  } else if (fab) {
+    // Le héros porte déjà le même bouton : le raccourci n'apparaît qu'une fois
+    // celui-ci sorti de l'écran. On le masque ensuite sur les blocs qui
+    // reprennent cet appel à l'action, ou dont il recouvrirait les champs.
+    var fabZones = $$('.hero, #reseau, .cta, #contact');
+
+    var onScreen = function (el) {
+      var rect = el.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < window.innerHeight;
+    };
+
+    // L'état est recalculé depuis la géométrie à chaque appel, et non mémorisé
+    // au fil des entrées reçues : un même lot peut contenir plusieurs états
+    // successifs d'une zone, dont seul le dernier décrit la position réelle.
+    var syncFab = function () {
+      fab.classList.toggle('is-visible', !fabZones.some(onScreen));
+    };
+
+    // Les observateurs ne servent que de déclencheurs : on n'est notifié qu'aux
+    // franchissements, pas à chaque pixel de défilement.
+    var fabObserver = new IntersectionObserver(syncFab, { threshold: 0 });
+
+    fabZones.forEach(function (el) { fabObserver.observe(el); });
+
+    syncFab();
+  }
 })();
